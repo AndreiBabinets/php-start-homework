@@ -1,13 +1,31 @@
 <?php
+$products = array(
+	array('name' => 'Телевизор', 'price' => '400', 'quantity' => 1),
+	array('name' => 'Телефон', 'price' => '300', 'quantity' => 3),
+	array('name' => 'Кроссовки', 'price' => '150', 'quantity' => 2)
+	);
 
-$menuItem = array('Кнопка 10', 'Кнопка 9', 'Кнопка 8', 'Кнопка 7', 'Кнопка 6', 'Кнопка 5', 'Кнопка 4', 'Кнопка 3', 'Кнопка 2', 'Кнопка 1');
+$price = 0;
+$quantity = 0; 
 
-$menuItem = array_reverse($menuItem);
+getCountPrice($products);
 
-echo '<ul>';
-foreach($menuItem as $item){
-	echo '<li><a href="#">' . $item . '</a></li>';
+echo "Сумма: $price <br>";
+echo "Каличество: $quantity <br>";
+
+function getCountPrice($shoppingBasket){
+  
+  global $price, $quantity;
+  
+  foreach($shoppingBasket as $key=>$value){
+      if (is_array($value)){
+          getCountPrice($value);
+          
+      } else {
+              if ($key=='price'){$price+=$value; }
+              if ($key=='quantity'){$quantity+=$value; }
+            }         
+    }
 }
-echo '</ul>';
 
 ?> 
